@@ -1,24 +1,17 @@
-const user = {
-    name: 'VasyYa',
-    married: true,
-    age: 25,
-    test: 'БесКонЧЕность и ДаЛЬше',
+const company1 = { name: 'Hexlet', state: 'moderating', website: 'https://hexlet.io' };
+const company2 = { name: 'CodeBasics', state: 'published', website: 'https://code-basics.com' };
+const company3 = { name: 'CodeBasics', state: 'published', website: 'https://code-basics.com' };
+let t1 = {};
+let t2 = {};
 
-}
-
-user.married = false;
-user.surname = 'Petrov';
-
-const test = {};
-
-
-const normalize = (lesson) => {
-    for (const el in lesson) {
-        lesson[el] = lesson[el].toString().charAt(0).toUpperCase() + lesson[el].toString().slice(1).toLowerCase();
+const comparison = (c1, c2) => {
+    const keys = ['name', 'state', 'website'];
+    for (const key of keys) {
+        if (c1[key] !== c2[key]) {
+            return false;
+        }
     }
+    return true;
 }
 
-normalize(user);
-
-
-  console.log(user);
+console.log(comparison(t1, t2));
