@@ -1,17 +1,49 @@
-const company1 = { name: 'Hexlet', state: 'moderating', website: 'https://hexlet.io' };
-const company2 = { name: 'CodeBasics', state: 'published', website: 'https://code-basics.com' };
-const company3 = { name: 'CodeBasics', state: 'published', website: 'https://code-basics.com' };
-let t1 = {};
-let t2 = {};
+import _ from 'lodash';
 
-const comparison = (c1, c2) => {
-    const keys = ['name', 'state', 'website'];
-    for (const key of keys) {
-        if (c1[key] !== c2[key]) {
-            return false;
-        }
+const filepath = '/path/to/index.js';
+const parts = filepath.split('/');
+const filename = _.last(parts);
+const extension = _.last(filename.split('.'));
+
+const info = {
+    filename,
+    extension,
+};
+
+console.log(info);
+
+const lessonsCount = 5;
+const course = {
+  lessonsCount,
+  name: 'Объекты',
+};
+course.lessonsCount += 1;
+
+console.log(course);
+
+const getDomainInfo = (link) => {
+    // let scheme = '';
+    // let name = '';
+    // if (!link.startsWith('http')) {
+    //     link = `http://${link}`;
+    // }
+    // const split = link.split('://')
+    // scheme = split[0];
+    // name = _.last(split[1].split('/'));
+
+    // return {scheme, name};
+    let name, scheme;
+    if (link.startsWith('https')) {
+        scheme = 'https';
     }
-    return true;
+    else scheme = 'http';
+
+    name = link.replace(`${scheme}://`, '')
+
+    return {scheme, name};
 }
 
-console.log(comparison(t1, t2));
+console.log(getDomainInfo('www.yandex.ru/valera.html'));
+
+
+
