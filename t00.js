@@ -1,49 +1,72 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-const filepath = '/path/to/index.js';
-const parts = filepath.split('/');
-const filename = _.last(parts);
-const extension = _.last(filename.split('.'));
+const fruits = [
+  "apple",
+  "banana",
+  "pear",
+  "apricot",
+  "apple",
+  "banana",
+  "apple",
+  "orange",
+  "pear",
+];
 
-const info = {
-    filename,
-    extension,
+const countFruits = (fruits) => {
+  const result = {};
+  for (let fruit of fruits) {
+    if (result[fruit] === undefined) result[fruit] = 1;
+    else result[fruit] += 1;
+  }
+  return result;
 };
 
-console.log(info);
+const countFruits2 = (fruits) => {
+  const result = {};
 
-const lessonsCount = 5;
-const course = {
-  lessonsCount,
-  name: 'Объекты',
-};
-course.lessonsCount += 1;
-
-console.log(course);
-
-const getDomainInfo = (link) => {
-    // let scheme = '';
-    // let name = '';
-    // if (!link.startsWith('http')) {
-    //     link = `http://${link}`;
-    // }
-    // const split = link.split('://')
-    // scheme = split[0];
-    // name = _.last(split[1].split('/'));
-
-    // return {scheme, name};
-    let name, scheme;
-    if (link.startsWith('https')) {
-        scheme = 'https';
+  for (const name of fruits) {
+    if (Object.hasOwn(result, name)) {
+      result[name] += 1;
+    } else {
+      result[name] = 1;
     }
-    else scheme = 'http';
+  }
 
-    name = link.replace(`${scheme}://`, '')
+  return result;
+};
 
-    return {scheme, name};
-}
+const countFruits3 = (fruits) => {
+  const result = {};
 
-console.log(getDomainInfo('www.yandex.ru/valera.html'));
+  fruits.map((name) => (result[name] = (result[name] ?? 0) + 1));
 
+  return result;
+};
 
+const text1 = "one two three two ONE one wow";
+const text2 = "another one sentence with strange Words words";
 
+const countWords = (text) => {
+  const result = {};
+  // if (text.length === 0) return result;
+  //const words = text.toLowerCase().split(" ");
+  //words.map((word) => (result[word] = (result[word] ?? 0) + 1));
+  const words = _.words(text);
+  for (const word of words) {
+    result[word] = (result[word] ?? 0) + 1;
+  }
+
+  return result;
+};
+
+const countWords2 = (text) => {
+  const result = {};
+  const words = _.words(text.toLowerCase());
+  words.map((word) => (result[word] = (result[word] ?? 0) + 1));
+
+  return result;
+};
+
+console.log(countFruits3(fruits));
+console.log(countWords2(""));
+console.log("".toLowerCase().split(" ").length ?? "text");
