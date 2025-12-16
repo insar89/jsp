@@ -1,72 +1,71 @@
-import _ from "lodash";
+import _ from "lodash"
 
-const fruits = [
-  "apple",
-  "banana",
-  "pear",
-  "apricot",
-  "apple",
-  "banana",
-  "apple",
-  "orange",
-  "pear",
-];
+const course = {
+  name: 'JS: React',
+  slug: 'js-react',
+}
 
-const countFruits = (fruits) => {
-  const result = {};
-  for (let fruit of fruits) {
-    if (result[fruit] === undefined) result[fruit] = 1;
-    else result[fruit] += 1;
-  }
-  return result;
+for (const prop in course) {
+  console.log(`course.${prop} = ${course[prop]}`);
+}
+
+
+console.log(Object.keys(course));
+console.log(Object.values(course));
+console.log(...Object.entries(course));
+
+for (const [k, v] of Object.entries(course)) {
+  console.log(k);
+  console.log(v);
+}
+
+const lessonMembers = {
+  syntax: 3,
+  using: 2,
+  foreach: 10,
+  operations: 10,
+  destructuring: 2,
+  array: 2,
 };
 
-const countFruits2 = (fruits) => {
-  const result = {};
+const findKeys = (obj, expectedValue) => {
+  const result = [];
+  const entries = Object.entries(obj);
 
-  for (const name of fruits) {
-    if (Object.hasOwn(result, name)) {
-      result[name] += 1;
-    } else {
-      result[name] = 1;
+  for (const [key, value] of entries) {
+    if (value === expectedValue) {
+      result.push(key);
     }
   }
 
   return result;
-};
+}
 
-const countFruits3 = (fruits) => {
+console.log(findKeys(lessonMembers, 10));
+
+const pick = (obj, requiredKeys) => {
   const result = {};
+  const entries = Object.entries(obj);
 
-  fruits.map((name) => (result[name] = (result[name] ?? 0) + 1));
-
-  return result;
-};
-
-const text1 = "one two three two ONE one wow";
-const text2 = "another one sentence with strange Words words";
-
-const countWords = (text) => {
-  const result = {};
-  // if (text.length === 0) return result;
-  //const words = text.toLowerCase().split(" ");
-  //words.map((word) => (result[word] = (result[word] ?? 0) + 1));
-  const words = _.words(text);
-  for (const word of words) {
-    result[word] = (result[word] ?? 0) + 1;
+  for (const [key, value] of entries) {
+    if (requiredKeys.find(el => el === key)) {
+      result[key] = value;
+    }
   }
 
   return result;
-};
+}
 
-const countWords2 = (text) => {
+const pick2 = (data, keys) => {
   const result = {};
-  const words = _.words(text.toLowerCase());
-  words.map((word) => (result[word] = (result[word] ?? 0) + 1));
+
+  for (const key of keys) {
+    if (Object.hasOwn(data, key)) {
+      result[key] = data[key];
+    }
+  }
 
   return result;
-};
+}
 
-console.log(countFruits3(fruits));
-console.log(countWords2(""));
-console.log("".toLowerCase().split(" ").length ?? "text");
+console.log(pick2(lessonMembers, ['syntax', 'using']));
