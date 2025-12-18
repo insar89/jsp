@@ -1,66 +1,63 @@
 import _ from 'lodash';
 
 const user = {
-  name: 'Vasya',
-  married: true,
-  age: 25,
+  name: 'Tirion',
+  email: 'support@hexlet.io',
+  age: 44,
 }
-
-user.friends = ['Kolya', 'Petya'];
-
-user.company = {
-  name: 'Hexlet',
-}
-
-console.log(user);
-
-const obj = { a: { b: { c: { }, e: [1, 2] } } }
-obj.a.b.c.key = 'value';
-console.log(_.get(obj, 'obj', 'defaultValue'));
-console.log(obj);
-// console.log(obj);
-// console.log(JSON.stringify(obj));
-
-const company = { name: 'Hexlet' };
-const user2 = { company };
-
-console.log(user2);
-
-console.log('\n');
 
 const data = {
-  user: 'ubuntu',
-  hosts: {
-    0: {
-      name: 'web1',
-    },
-    1: {
-      name: 'web2',
-      null: 3,
-      active: false,
-      test: {
-        test2: 'test3',
-      },
-    },
-  },
-};
-
-console.log(data);
-console.log('\n')
-const keys = ['hosts', '0', 'namen'];
-const get = (data, keys) => {
-  let check = data;
-
-  for (const key of keys) {
-    if (!Object.hasOwn(check, key)) {
-      return null;
-    }
-    check = check[key];
-  }
-
-  return check;
+  name: 'Tirion 2',
+  age: 33,
 }
 
-console.log(data?.hosts?.[0]?.name);
+// user.name = data.name;
+// user.age = data.age;
+// if (Object.hasOwn(data, 'email')) {
+//   user.email = data.email;
+// }
 
-console.log(get(data, keys));
+Object.assign(user, data);
+console.log(user);
+
+const user2 = { company: { name: 'Hexlet' } };
+Object.assign(user2, { company: {} });
+console.log(user2.company.name);
+
+const companyTask = {
+  name: null,
+  state: 'moderating',
+};
+
+const dataTask = {
+  name: 'Hexlet',
+  state: 'published',
+};
+
+//export default mergeAllowed = (parentObject, keys, childObject) => {
+const mergeAllowed = (parentObject, keys, childObject) => {
+
+  if (keys.length === 0) {
+    return Object.assign(parentObject, childObject);
+  }
+
+  for (const key of keys) {
+    parentObject[key] = childObject[key];
+  }
+  return parentObject;
+};
+
+const mergeAllowedLD = (parentObject, keys, childObject) => {
+  if (keys.length === 0) {
+    return Object.assign(parentObject, childObject);
+  }
+
+  return Object.assign(parentObject, _.pick(childObject, keys))
+};
+
+const mergeAllowedSensei = (parentObject, keys, childObject) => {
+  const filteredData = keys.length > 0 ? _.pick(childObject, keys) : childObject;
+  return Object.assign(parentObject, filteredData);
+}
+
+console.log(mergeAllowedSensei (companyTask, ['name'], dataTask));
