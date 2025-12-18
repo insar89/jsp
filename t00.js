@@ -1,71 +1,66 @@
-import _ from "lodash"
+import _ from 'lodash';
 
-const course = {
-  name: 'JS: React',
-  slug: 'js-react',
+const user = {
+  name: 'Vasya',
+  married: true,
+  age: 25,
 }
 
-for (const prop in course) {
-  console.log(`course.${prop} = ${course[prop]}`);
+user.friends = ['Kolya', 'Petya'];
+
+user.company = {
+  name: 'Hexlet',
 }
 
+console.log(user);
 
-console.log(Object.keys(course));
-console.log(Object.values(course));
-console.log(...Object.entries(course));
+const obj = { a: { b: { c: { }, e: [1, 2] } } }
+obj.a.b.c.key = 'value';
+console.log(_.get(obj, 'obj', 'defaultValue'));
+console.log(obj);
+// console.log(obj);
+// console.log(JSON.stringify(obj));
 
-for (const [k, v] of Object.entries(course)) {
-  console.log(k);
-  console.log(v);
-}
+const company = { name: 'Hexlet' };
+const user2 = { company };
 
-const lessonMembers = {
-  syntax: 3,
-  using: 2,
-  foreach: 10,
-  operations: 10,
-  destructuring: 2,
-  array: 2,
+console.log(user2);
+
+console.log('\n');
+
+const data = {
+  user: 'ubuntu',
+  hosts: {
+    0: {
+      name: 'web1',
+    },
+    1: {
+      name: 'web2',
+      null: 3,
+      active: false,
+      test: {
+        test2: 'test3',
+      },
+    },
+  },
 };
 
-const findKeys = (obj, expectedValue) => {
-  const result = [];
-  const entries = Object.entries(obj);
-
-  for (const [key, value] of entries) {
-    if (value === expectedValue) {
-      result.push(key);
-    }
-  }
-
-  return result;
-}
-
-console.log(findKeys(lessonMembers, 10));
-
-const pick = (obj, requiredKeys) => {
-  const result = {};
-  const entries = Object.entries(obj);
-
-  for (const [key, value] of entries) {
-    if (requiredKeys.find(el => el === key)) {
-      result[key] = value;
-    }
-  }
-
-  return result;
-}
-
-const pick2 = (data, keys) => {
-  const result = {};
+console.log(data);
+console.log('\n')
+const keys = ['hosts', '0', 'namen'];
+const get = (data, keys) => {
+  let check = data;
 
   for (const key of keys) {
-    if (Object.hasOwn(data, key)) {
-      result[key] = data[key];
+    if (!Object.hasOwn(check, key)) {
+      return null;
     }
+    check = check[key];
   }
 
-  return result;
+  return check;
 }
 
-console.log(pick2(lessonMembers, ['syntax', 'using']));
+console.log(data?.hosts?.[0]?.name);
+
+console.log(get(data, keys));
